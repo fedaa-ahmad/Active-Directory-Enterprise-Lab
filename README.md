@@ -53,7 +53,7 @@ This is a lab plan, not a record of a deployed domain. Use a non-production isol
 
 ## Existing project notes
 
-The original [lab overview](01-Planning/Lab-Overview.md) is retained and expanded. Its listed hardware, VM sizing, and IP/DNS values are treated as **proposed inputs**, not verified live configuration. In particular, the listed address `192.168.2.250` and gateway `192.168.3.1` appear to be in different /24 networks, and the two listed DNS addresses are in `192.168.44.0/24`; the intended subnet, mask, routing, and DNS design must be confirmed before use.
+The existing [lab overview](01-Planning/Lab-Overview.md) is preserved; the requirements and network design guides expand its planning details. Its listed hardware, VM sizing, and IP/DNS values are treated as **proposed inputs**, not verified live configuration. In particular, the listed address `192.168.2.250` and gateway `192.168.3.1` appear to be in different /24 networks, and the two listed DNS addresses are in `192.168.44.0/24`; the intended subnet, mask, routing, and DNS design must be confirmed before use.
 
 ## License
 
