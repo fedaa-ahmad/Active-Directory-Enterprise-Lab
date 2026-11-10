@@ -1,42 +1,42 @@
 # Network Design
 
-**Status: Proposed; do not configure from this page until the open values are validated.**
+**Status:** Lab isolation and separate internet connectivity are reported complete. Detailed network configuration is intentionally not published.
 
-## Existing values to reconcile
+## Security and disclosure
 
-The original overview records a static host address of `192.168.2.250`, gateway `192.168.3.1`, preferred DNS `192.168.44.100`, and alternate DNS `192.168.44.254`. It gives no subnet mask/prefix or VLAN. If the intended subnet is /24, the address and gateway are on different networks, while both DNS addresses are outside `192.168.2.0/24`. This may be intentional routing, but the route and DNS purpose are undocumented. Treat every value as unverified and resolve with the lab network owner before use.
+This repository is public. Never record production IP addresses, actual subnets, gateways, DNS servers, VLANs, routes, MAC addresses, Starlink account details, ZeroTier network identifiers, or credentials. Maintain exact configuration in a private operational record. The project owner reports the lab server is isolated from production and connected through an independent Starlink service. This page does not verify or describe the underlying topology.
 
-## Design principles
+## Logical design
 
-- Use an isolated virtual network with no unintended bridge to production.
-- Give the server a static address or a documented reservation and record prefix, gateway, and DNS purpose together.
-- After a domain is deployed, domain members should use the AD DNS service for domain lookups. Document forwarders and upstream resolvers separately; do not put unrelated public resolvers directly on domain clients.
-- Ensure the domain controller has reliable time synchronization and that the lab resolves only the names it needs.
-- Limit inbound management access to a trusted lab administration segment; avoid exposing management protocols to the internet.
+The design intent is an isolated lab segment hosting DC01 and future lab clients, with controlled internet access for updates and administration from trusted lab access. Confirm the isolation at the physical and ESXi virtual switch/port group layers. Do not expose ESXi management, RDP, LDAP, DNS, or other directory services to the public internet.
+
+~~~text
+Trusted lab administration -> isolated lab segment -> DC01 (planned domain services)
+                                              -> future lab clients
+                                              -> controlled outbound update access
+~~~
+
+This is a logical concept only, not a record of deployed cabling, routes, or IP configuration.
 
 ## Addressing worksheet
 
-| Role | Hostname | IPv4/prefix | Gateway | DNS | VLAN / segment | Status |
-| --- | --- | --- | --- | --- | --- | --- |
-| Planned server | AD-Test (existing note) | 192.168.2.250 (unverified) | 192.168.3.1 (unverified) | 192.168.44.100, 192.168.44.254 (unverified) | Not recorded | Requires validation |
-| Future client | TBD | TBD | TBD | Planned AD DNS after deployment | TBD | Planned |
+| Role | Hostname | Address/prefix | Gateway and DNS | Status |
+|---|---|---|---|---|
+| Domain controller | DC01 | Maintained privately | Maintained privately | Address configuration not documented here |
+| Future client | TBD | Maintained privately | AD DNS after promotion verification | Planned |
 
-## Required validation before installation or promotion
+If an example is needed in a separate instructional context, use only documentation ranges reserved for examples (RFC 5737 TEST-NET); label them fictional and never imply they are the lab's real settings.
 
-1. Identify the intended subnet/prefix, VLAN/port group, gateway, and route. Confirm that the server address is valid for that segment.
-2. Identify what each listed DNS address serves and whether it is reachable from the lab segment.
-3. Confirm isolation and approved egress/update paths.
-4. Record a simple network diagram and test plan (connectivity, name resolution, time source).
-5. Reconcile this table with actual hypervisor and guest settings, recording evidence without secrets.
+## DNS and routing principles
 
-## Diagram (logical intent only)
+- Use stable addressing for servers, based on the private lab plan.
+- After domain deployment, domain members should use the AD DNS service for domain names and records.
+- Configure upstream resolution as forwarders on internal DNS as appropriate; avoid unrelated public resolvers as the direct DNS setting on domain members.
+- Validate routing, name resolution, time synchronization, and outbound update paths from the isolated segment.
+- Review ZeroTier routes, DNS behavior, and adapter registration locally. Do not disclose its network identity, managed addresses, or credentials.
 
-```text
-[Admin workstation]       [Future client VM(s)]
-         \                    /
-          +-- [Isolated lab segment] -- [AD-Test VM: planned Windows Server]
+## Validation record
 
-External routing / update access: undecided; explicitly control and document before enabling.
-```
+Isolation from production and independent Starlink connectivity are reported complete by the project owner. No live network settings or screenshots are included. Add sanitized evidence only after review. Verify that management remains private, that the intended lab segment has no unintended production bridge, and that outbound access is limited to the documented requirement.
 
-This is a planning aid and does not describe a deployed network.
+See [DC01 Installation and Domain Deployment](../02-Installation/01-DC01-Installation.md) for adapter considerations and [Lab Overview](Lab-Overview.md) for project status.
