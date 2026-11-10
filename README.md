@@ -1,60 +1,70 @@
 # Active Directory Enterprise Lab
 
-Portfolio project for planning, building, administering, and securing a Windows Server Active Directory lab. This repository is the project record: documentation describes intended work, while implementation evidence will be added only after a task has actually been completed and verified.
+A professional, evidence-based portfolio project documenting the preparation and deployment of an isolated Windows Server Active Directory lab.
 
-> **Current status:** Planning / in progress. The existing planning notes list a Windows Server 2016 Datacenter virtual machine and proposed network values. Those values have not been independently verified. No domain controller promotion or completed AD configuration is claimed.
+## Project overview
+
+The lab is hosted on an HP ProLiant ML350 G6 using VMware ESXi 6.0 U3. The guest is Windows Server 2016 Datacenter. The planned first domain controller is **DC01** for the **corp.example.com** forest/domain, with NetBIOS name **CORP**. The lab is reported isolated from the production network and uses an independent Starlink connection. ZeroTier One is installed.
+
+This repository records implementation progress without claiming unverified results. Current progress is based on the project owner’s report; verification evidence has not yet been uploaded.
+
+## Current implementation status
+
+| Work item | Status |
+|---|---|
+| ESXi virtual machine prepared | Reported complete |
+| Lab isolated from production and connected to independent internet | Reported complete |
+| Windows Server 2016 Datacenter installed and renamed DC01 | Reported complete |
+| AD DS and DNS roles installed | Reported complete |
+| New forest promotion for corp.example.com | **In Progress — successful completion not yet verified** |
+| Domain/forest, services, DNS, and DC health checks | Pending |
+| Users, groups, OUs, and Group Policy | Planned |
+
+Promotion must remain In Progress until the server has completed the promotion and restart and the verification commands pass. See the [DC01 installation and deployment guide](02-Installation/01-DC01-Installation.md).
 
 ## Learning objectives
 
-- Plan an isolated, supportable Windows Server lab and document its network.
-- Install and baseline Windows Server 2016.
-- Deploy and validate Active Directory Domain Services (AD DS) and DNS.
-- Design OUs, users, groups, delegation, and Group Policy for a small enterprise.
+- Prepare and isolate a virtualized Windows Server lab.
+- Install and baseline Windows Server 2016 Datacenter.
+- Deploy AD DS and DNS and validate domain controller health.
+- Design OUs, users, groups, delegation, and Group Policy.
 - Apply least privilege, secure administration, and auditing practices.
-- Plan backups, test recovery, and troubleshoot common identity and DNS failures.
-- Use PowerShell carefully, with readable scripts and verification steps.
+- Plan backup and recovery and troubleshoot directory and DNS issues.
+- Use PowerShell with reviewable commands and evidence.
 
-## Repository map
+## Repository guide
 
 | Path | Purpose |
-| --- | --- |
-| `01-Planning/` | Scope, requirements, and network design |
-| `02-Installation/` | Windows Server installation and baseline checklist |
-| `03-Active-Directory/` | AD DS and DNS deployment guide and validation record |
-| `04-Identity-Design/` | Planned OU, user, group, and GPO design worksheets |
-| `05-Security/` | Security baseline and administration practices |
-| `06-Backup-Recovery/` | Backup and recovery plan and test evidence |
-| `07-Troubleshooting/` | Diagnostic workflow and issue runbook |
-| `scripts/` | PowerShell scripts; review before running |
-| `evidence/` | Future sanitized screenshots, command output, and test records |
+|---|---|
+| [01-Planning/](01-Planning/Lab-Overview.md) | Scope, requirements, infrastructure, and network design |
+| [02-Installation/01-DC01-Installation.md](02-Installation/01-DC01-Installation.md) | Infrastructure preparation, ESXi, Windows, roles, promotion, verification, and troubleshooting |
+| [02-Installation/screenshots/](02-Installation/screenshots/README.md) | Screenshot filename index and pending evidence placeholders |
+| [02-Installation/Windows-Server-2016.md](02-Installation/Windows-Server-2016.md) | Windows installation checklist and links to the implementation record |
+| [03-Active-Directory/AD-DS-and-DNS.md](03-Active-Directory/AD-DS-and-DNS.md) | AD DS and DNS deployment status and checks |
+| [04-Identity-Design/](04-Identity-Design/README.md) | Planned users, groups, OUs, and GPO design |
+| [05-Security/](05-Security/README.md) | Security baseline and administration practices |
+| [06-Backup-Recovery/](06-Backup-Recovery/README.md) | Backup and recovery planning |
+| [07-Troubleshooting/](07-Troubleshooting/README.md) | Diagnostic workflows and issue guidance |
+| [scripts/](scripts/README.md) | PowerShell scripts and safe-use guidance |
+| [evidence/](evidence/README.md) | Sanitized project evidence guidance |
 
-## Project status
+## Documentation and evidence standards
 
-| Workstream | Status |
-| --- | --- |
-| Planning and inventory | In progress; existing values require validation |
-| Windows Server installation | Planned; no completion evidence recorded |
-| AD DS and DNS | Planned; server must not be promoted until prerequisites are validated |
-| Users, groups, OUs, and GPO | Design documentation prepared; implementation planned |
-| Security, backup, recovery, troubleshooting | Documentation prepared; lab validation planned |
+Statuses are **Planned**, **In Progress**, **Reported complete**, and **Completed (verified)**. Owner-reported completion is not independent verification. Mark a task Completed (verified) only after its checks pass and dated, sanitized evidence is linked.
 
-Use the status labels **Planned**, **In progress**, **Completed (verified)**, and **Blocked**. A task is completed only when its evidence, date, and validation result are recorded. Do not commit passwords, recovery keys, private IPs from a production environment, or unredacted personal data.
+The repository is public. Never publish passwords, credentials, product keys, recovery secrets, access tokens, Starlink account details, ZeroTier credentials or network identifiers, production IP addresses, or real network configurations. Exact network settings remain in a private record. Any sample addressing must use documentation-only ranges and be clearly labeled as fictional.
 
-## Start here
-
-1. Read [the lab overview](01-Planning/Lab-Overview.md), [requirements](01-Planning/Requirements.md), and [network design](01-Planning/Network-Design.md).
-2. Resolve the network questions and confirm the lab is isolated before installing anything.
-3. Follow the [Windows Server installation guide](02-Installation/Windows-Server-2016.md).
-4. Record evidence and pass the prerequisite checklist in the [AD DS and DNS guide](03-Active-Directory/AD-DS-and-DNS.md) before any future promotion.
+No actual server configuration is changed by this documentation. The project record describes reported actions and planned verification only.
 
 ## Safety and scope
 
-This is a lab plan, not a record of a deployed domain. Use a non-production isolated virtual network, snapshots only as a convenience (not as a substitute for system-state backup), and synthetic accounts and data. Windows Server 2016 is a legacy platform; use it only in an isolated learning environment and consult current vendor lifecycle/security guidance before any real deployment.
+Keep the lab isolated from production and restrict administration to trusted lab access. Do not expose ESXi management, Windows management, or directory services to the public internet. Treat snapshots as convenience only; they do not replace supported Active Directory system-state backup. Windows Server 2016 and ESXi 6.0 U3 are legacy releases; this project is a learning lab, and lifecycle/support should be evaluated before any production use.
 
-## Existing project notes
+## Start here
 
-The existing [lab overview](01-Planning/Lab-Overview.md) is preserved; the requirements and network design guides expand its planning details. Its listed hardware, VM sizing, and IP/DNS values are treated as **proposed inputs**, not verified live configuration. In particular, the listed address `192.168.2.250` and gateway `192.168.3.1` appear to be in different /24 networks, and the two listed DNS addresses are in `192.168.44.0/24`; the intended subnet, mask, routing, and DNS design must be confirmed before use.
+1. Review the [lab overview](01-Planning/Lab-Overview.md), [requirements](01-Planning/Requirements.md), and [network design](01-Planning/Network-Design.md).
+2. Follow the [DC01 installation and promotion record](02-Installation/01-DC01-Installation.md).
+3. Keep promotion marked In Progress until post-restart verification passes.
+4. Add genuine, sanitized screenshots using the [evidence index](02-Installation/screenshots/README.md).
 
-## License
-
-See [LICENSE](LICENSE).
+See [LICENSE](LICENSE) for repository licensing.
