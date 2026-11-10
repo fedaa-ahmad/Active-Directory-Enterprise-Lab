@@ -1,46 +1,43 @@
-# Active Directory Enterprise Lab
+# Lab Overview
 
-## 1. Project Overview
+## Project purpose
 
-This project demonstrates the implementation,
-configuration, administration, and security
-of an enterprise Active Directory environment.
+This portfolio documents the design, deployment, administration, and security of an isolated Active Directory learning environment. It records progress with clear status labels and sanitized evidence.
 
-## 2. Project Objectives
+## Infrastructure inventory
 
-- Deploy Active Directory Domain Services.
-- Configure DNS.
-- Create and manage users and groups.
-- Design Organizational Units.
-- Implement Group Policies.
-- Configure File Server permissions.
-- Apply security best practices.
-- Implement backup and recovery.
+| Layer | Reported specification | Status |
+|---|---|---|
+| Physical server | HP ProLiant ML350 G6 | In use for lab |
+| Hypervisor | VMware ESXi 6.0 U3 | VM prepared |
+| Guest OS | Windows Server 2016 Datacenter | Installed |
+| Domain controller hostname | DC01 | Renamed |
+| Forest/domain | corp.example.com | New forest promotion In Progress; not verified successful |
+| NetBIOS name | CORP | Intended value; verify after promotion |
+| Connectivity | Lab isolated from production; independent Starlink connection | Owner reported complete |
+| Overlay networking | ZeroTier One installed | Adapter and DNS behavior require review |
 
-## 3. Lab Infrastructure
+## Current progress
 
-| Component | Configuration |
-|---|---|
-| Hypervisor | VMware ESXi 6.0 U3 |
-| Server | HP ProLiant ML350 G6 |
-| Virtual Machine | AD-Test |
-| Operating System | Windows Server 2016 Datacenter |
-| vCPU | 16 |
-| RAM | 16 GB |
-| Storage | 120 GB |
+The owner reports that the ESXi virtual machine was prepared, the lab server isolated from production and connected to an independent Starlink path, Windows Server installed and renamed DC01, and AD DS and DNS roles installed. Promotion was started, with a new forest corp.example.com selected. Promotion is **In Progress** until the wizard completes, the server restarts, and the domain, forest, services, DNS, and health checks are recorded.
 
-## 4. Network Configuration
+No verification screenshots or command output have been uploaded. This status is an owner report, not an independent audit.
 
-| Parameter | Value |
-|---|---|
-| IP Address | 192.168.2.250 |
-| Gateway | 192.168.3.1 |
-| Preferred DNS | 192.168.44.100 |
-| Alternate DNS | 192.168.44.254 |
-| IP Configuration | Static |
+## Network disclosure
 
-## 5. Project Status
+The public repository contains no live addressing, subnet, gateway, DNS server, VLAN, route, MAC, Starlink account, or ZeroTier network details. Maintain exact network configuration privately. See [Network Design](Network-Design.md) for the logical design and disclosure rules.
 
-Current Phase: Planning
+## Learning objectives
 
-Status: In Progress
+- Build an isolated virtualized Windows Server environment.
+- Install and baseline Windows Server and directory services.
+- Validate AD DS, DNS, domain controller health, and name resolution.
+- Design identity structure, Group Policy, and delegated administration.
+- Apply security controls and document operational decisions.
+- Plan backup, recovery, and troubleshooting procedures.
+
+## Related documentation
+
+- [Requirements](Requirements.md)
+- [Network Design](Network-Design.md)
+- [DC01 Installation and Domain Deployment](../02-Installation/01-DC01-Installation.md)
