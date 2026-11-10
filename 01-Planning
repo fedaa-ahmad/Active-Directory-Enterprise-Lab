@@ -1,0 +1,59 @@
+# Active Directory Enterprise Lab
+
+## 1. Project Overview
+
+This project demonstrates the implementation,
+configuration, administration, and security
+of an enterprise Active Directory environment.
+
+The lab is designed to simulate a real-world
+corporate IT infrastructure.
+
+## 2. Project Objectives
+
+- Deploy Active Directory Domain Services.
+- Configure DNS.
+- Create and manage users and groups.
+- Design Organizational Units (OUs).
+- Implement Group Policies (GPOs).
+- Configure file server permissions.
+- Apply security best practices.
+- Implement backup and recovery procedures.
+- Troubleshoot common Active Directory issues.
+
+## 3. Lab Infrastructure
+
+| Component | Configuration |
+|---|---|
+| Hypervisor | VMware ESXi 6.0 Update 3 |
+| Server Hardware | HP ProLiant ML350 G6 |
+| Domain Controller VM | AD-Test |
+| Operating System | Windows Server 2016 Datacenter |
+| vCPU | 16 |
+| RAM | 16 GB |
+| Storage | 120 GB |
+
+## 4. Network Configuration
+
+| Parameter | Value |
+|---|---|
+| IP Address | 192.168.2.250 |
+| Default Gateway | 192.168.3.1 |
+| Preferred DNS | 192.168.44.100 |
+| Alternate DNS | 192.168.44.254 |
+| IP Configuration | Static |
+
+## 5. Project Requirements
+
+- Step-by-step implementation.
+- Security-focused configuration.
+- Complete technical documentation.
+- Screenshots and verification evidence.
+- Backup and recovery testing.
+- Virtual machine portability.
+
+## 6. Project Status
+
+Current Phase: Infrastructure Assessment
+
+Status: In Progress
